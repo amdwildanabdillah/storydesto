@@ -1,0 +1,539 @@
+/* =========================================
+   1. RESET & GLOBAL STYLES
+   ========================================= */
+:root {
+    --primary-color: #2D2D2D; /* Hitam Elegan */
+    --accent-color: #D4AF37;  /* Emas Premium */
+    --bg-color: #FAFAFA;      /* Background Putih Bersih */
+    --text-color: #333;
+    --white: #fff;
+    --transition: all 0.3s ease;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.container { width: 90%; max-width: 1200px; margin: 0 auto; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+
+/* =========================================
+   2. NAVBAR
+   ========================================= */
+.navbar {
+    padding: 1.5rem 0;
+    position: sticky;
+    top: 0;
+    background: rgba(250, 250, 250, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.nav-container { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 1.5rem; font-weight: 700; color: var(--primary-color); }
+.logo span { color: var(--accent-color); }
+
+.nav-links { display: flex; gap: 2rem; align-items: center; }
+.nav-links a { font-weight: 500; transition: var(--transition); }
+.nav-links a:hover { color: var(--accent-color); }
+
+.btn-nav {
+    padding: 0.5rem 1.5rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 50px; font-weight: 600;
+}
+.btn-nav:hover { background: var(--primary-color); color: var(--white); }
+
+.hamburger { display: none; font-size: 1.8rem; cursor: pointer; }
+
+/* =========================================
+   3. HERO SECTION (UPDATE: VIDEO FRAME)
+   ========================================= */
+.hero { padding: 4rem 0; min-height: 90vh; display: flex; align-items: center; }
+.hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+
+.hero-text h3 { color: var(--accent-color); font-weight: 600; margin-bottom: 0.5rem; }
+.hero-text h1 {
+    font-size: 3.5rem; line-height: 1.2; margin-bottom: 1.5rem;
+    color: var(--primary-color);
+}
+.highlight { background: linear-gradient(120deg, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0) 100%); }
+
+.hero-buttons { margin-top: 2rem; display: flex; gap: 1rem; }
+
+.btn-primary {
+    background: var(--primary-color); color: var(--white);
+    padding: 12px 30px; border-radius: 50px; display: flex;
+    align-items: center; gap: 8px; transition: var(--transition);
+}
+.btn-primary:hover { background: var(--accent-color); transform: translateY(-3px); }
+
+.btn-secondary {
+    border: 1px solid #ccc; padding: 12px 30px; border-radius: 50px;
+    transition: var(--transition);
+}
+.btn-secondary:hover { border-color: var(--primary-color); }
+
+/* --- UPDATE: BINGKAI HP UNTUK VIDEO --- */
+.hero-image {
+    position: relative;
+    width: 320px;  /* Lebar standar HP */
+    height: 570px; /* Tinggi standar HP */
+    border-radius: 30px; /* Lengkungan HP */
+    box-shadow: 20px 20px 0px var(--accent-color);
+    overflow: hidden; /* PENTING: Memotong watermark yang keluar */
+    margin: 0 auto;
+    background: #000;
+}
+
+/* FIX: Video Full Agar Watermark Kelihatan */
+.hero-image video {
+    width: 100%;
+    height: 100%; /* Full height sesuai bingkai */
+    object-fit: cover;
+    object-position: center; /* Posisi tengah normal */
+    display: block;
+}
+
+/* =========================================
+   4. SERVICES & PROCESS
+   ========================================= */
+.services { padding: 5rem 0; text-align: center; }
+.section-title { font-size: 2.5rem; margin-bottom: 3rem; color: var(--primary-color); }
+.service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+
+.service-card {
+    background: var(--white); padding: 2rem; border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: var(--transition);
+}
+.service-card:hover { transform: translateY(-10px); }
+.service-card i { font-size: 3rem; color: var(--accent-color); margin-bottom: 1rem; }
+
+/* Process Steps */
+.process { background: #1a1a1a; color: var(--white); padding: 5rem 0; }
+.process .section-title { color: var(--white); text-align: center; }
+.process-wrapper { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem; margin-top: 3rem; }
+.step { flex: 1; min-width: 200px; text-align: center; }
+.step-number {
+    font-size: 4rem; font-weight: 700; color: rgba(255,255,255,0.1);
+    display: block; margin-bottom: -20px;
+}
+.step h3 { font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--accent-color); }
+.step p { font-size: 0.9rem; color: #ccc; }
+
+/* =========================================
+   5. PORTOFOLIO (MODEL LIST + GALERI)
+   ========================================= */
+.portfolio .section-title {
+    margin-bottom: 5px !important;
+    text-align: center;
+    padding-top: 80px !important;
+}
+.portfolio p {
+    margin-bottom: 15px !important; /* Jarak ke foto jadi jauh/lega */
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #666;
+    text-align: center;
+}
+
+/* Container List ke Bawah */
+.portfolio-list {
+    display: flex;
+    flex-direction: column;
+    gap: 60px; /* Jarak antar klien */
+    max-width: 800px;
+    margin: 0 auto;
+    margin-top: 80px !important;
+}
+
+/* Kartu Putih Per Klien */
+.portfolio-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+.portfolio-card:hover { transform: translateY(-5px); }
+
+#section#portfolio {
+    padding-bottom: 150px !important;
+    margin-bottom: 200px !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+/* Info Nama Klien */
+.client-info {
+    text-align: center; margin-bottom: 25px;
+    border-bottom: 2px solid #f0f0f0; padding-bottom: 15px;
+}
+.client-info h3 { font-size: 1.8rem; color: #2D2D2D; margin-bottom: 5px; }
+.client-info p { font-size: 1rem; color: #777; }
+
+/* Wadah Galeri */
+.gallery-container {
+    width: 100%; display: flex;
+    flex-direction: column; align-items: center; gap: 15px;
+}
+
+/* FOTO UTAMA (Rasio 4:5 Instagram) */
+.main-photo {
+    width: 100%;
+    aspect-ratio: 4 / 5; /* Kunci rasio portrait */
+    object-fit: cover;   /* Crop rapi */
+    object-position: top center; /* Fokus wajah */
+    border-radius: 15px;
+    background-color: #f5f5f5; /* Warna loading */
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+/* THUMBNAILS (Foto Kecil) */
+.thumbnail-row {
+    display: flex; gap: 10px; justify-content: center;
+    width: 100%; overflow-x: auto; padding: 5px 0;
+}
+
+.thumb {
+    width: 70px; height: 70px; /* Ukuran kotak kecil */
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+    opacity: 0.6;
+    border: 2px solid transparent;
+    transition: 0.3s;
+}
+
+.thumb:hover, .thumb.active {
+    opacity: 1;
+    border-color: var(--accent-color); /* Border emas saat aktif */
+    transform: scale(1.05);
+}
+
+/* =========================================
+   6. FOOTER & CTA
+   ========================================= */
+.cta { padding: 5rem 0; text-align: center; background: #f4f4f4; }
+.btn-whatsapp-big {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: #25D366; color: white; padding: 15px 40px;
+    border-radius: 50px; font-size: 1.2rem; margin-top: 2rem;
+    font-weight: 600; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+    transition: var(--transition);
+}
+.btn-whatsapp-big:hover { background: #1ebc57; transform: scale(1.05); }
+
+/* FIX: Error warna footer diperbaiki */
+footer {
+    text-align: center; padding: 2rem;
+    background: var(--primary-color); 
+    color: rgba(255, 255, 255, 0.5); /* SUDAH BENAR */
+    font-size: 0.9rem;
+}
+
+/* =========================================
+   7. RESPONSIVE (MOBILE)
+   ========================================= */
+@media (max-width: 768px) {
+    /* Navbar Mobile */
+    .nav-links {
+        display: none; position: absolute; top: 70px; right: 0;
+        background: var(--white); width: 100%; flex-direction: column;
+        padding: 2rem; box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+    .nav-links.active { display: flex; }
+    .hamburger { display: block; }
+    
+    /* Hero Mobile */
+    .hero-content { grid-template-columns: 1fr; text-align: center; }
+    .hero-text h1 { font-size: 2.5rem; }
+    .hero-buttons { justify-content: center; }
+    .hero-image { order: -1; margin-bottom: 2rem; }
+
+    /* Ukuran HP Frame di Mobile (Kecilin dikit) */
+    .hero-image {
+        width: 280px;
+        height: 500px;
+    }
+    
+    .process-wrapper { flex-direction: column; gap: 3rem; }
+
+    /* Portfolio Mobile Fix */
+    .portfolio-card {
+        padding: 20px;
+        box-shadow: none; border-bottom: 1px solid #eee;
+        border-radius: 0;
+    }
+    .portfolio-list { gap: 30px; }
+    
+    /* Batasi tinggi foto utama di HP biar ga menuhin layar */
+    .main-photo { max-height: 500px; }
+}
+
+/* --- TOMBOL MUSIK --- */
+.music-btn {
+    position: fixed;
+    bottom: 30px;
+    left: 30px; /* Pojok kiri bawah */
+    width: 50px;
+    height: 50px;
+    background-color: var(--white);
+    border: 2px solid var(--accent-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 9999; /* Supaya selalu di atas */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.music-btn i {
+    font-size: 1.5rem;
+    color: var(--accent-color);
+}
+
+.music-btn:hover {
+    transform: scale(1.1);
+}
+
+/* Animasi Muter saat lagu main */
+.music-btn.playing {
+    border-color: #25D366; /* Ganti warna jadi hijau kalo nyala (opsional) */
+    animation: muter 3s linear infinite;
+}
+
+@keyframes muter {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* =========================================
+   TESTIMONIAL SECTION
+   ========================================= */
+.testimonials {
+    padding: 5rem 0;
+    background-color: #fff; /* Latar putih biar bersih */
+    text-align: center !important;
+}
+
+section#testimonials {
+    padding-top: 80px !important;
+    margin-top: 100px !important;
+    clear: both !important;
+}
+
+.testi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.testi-card {
+    background: #FAFAFA; /* Abu sangat muda biar beda dikit sama background */
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+    transition: 0.3s;
+    border: 1px solid #eee;
+}
+
+.testi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    border-color: var(--accent-color); /* Efek border emas pas di-hover */
+}
+
+.stars {
+    color: #FFD700; /* Warna Kuning Bintang */
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.testi-text {
+    font-style: italic;
+    color: #555;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.testi-user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.testi-user img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Foto bulat */
+    object-fit: cover;
+}
+
+.user-info h4 {
+    font-size: 1rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.user-info span {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+@media (max-width: 768px) {
+    /* ... kode lain ... */
+
+    /* FIX TESTIMONI DI HP */
+    .testi-grid {
+        grid-template-columns: 1fr; /* Paksa jadi 1 kolom ke bawah */
+        gap: 2rem;
+    }
+
+    .testi-card {
+        padding: 1.5rem; /* Kecilin padding biar muat */
+    }
+
+    .testi-user {
+        flex-direction: row; /* Pastikan foto dan nama tetep sebelahan */
+        align-items: center;
+        justify-content: flex-start; /* Rata kiri */
+    }
+    
+    .testi-user img {
+        width: 40px; /* Kecilin dikit avatar di HP */
+        height: 40px;
+    }
+}
+
+/* --- CONTACT FORM SECTION --- */
+.contact-section {
+    padding: 5rem 0;
+    background-color: #f4f4f4;
+}
+
+.contact-wrapper {
+    display: grid !important;
+    grid-template-columns: 1fr 1.2fr; /* Kolom kiri teks, kanan form */
+    gap: 2rem !important;
+    align-items: start !important;
+    text-align: left !important;
+}
+
+.contact-text {
+    text-align: left;
+}
+
+.contact-info {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+    margin-top: 1.5rem !important;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.info-item i {
+    color: var(--accent-color);
+    font-size: 1.5rem;
+}
+
+/* KARTU FORM */
+.contact-form-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.form-group input, 
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: 0.3s;
+    background: #f9f9f9;
+    text-align: center;
+}
+
+.form-group input:focus, 
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    background: white;
+}
+
+.btn-submit {
+    width: 100%;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+
+.btn-submit:hover {
+    background: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+/* RESPONSIVE HP */
+@media (max-width: 768px) {
+    .contact-wrapper {
+        grid-template-columns: 1fr; /* Tumpuk ke bawah di HP */
+        gap: 2rem;
+    }
+    .contact-text {
+        text-align: center;
+    }
+    .contact-info {
+        align-items: center;
+    }
+}
+
