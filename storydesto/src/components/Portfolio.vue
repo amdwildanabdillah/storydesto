@@ -1,32 +1,39 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { supabase } from '../supabase'; // Pastiin file supabase.js lu udah bener path-nya
 
-const clients = ref([
-  {
-    name: 'Syahrulabdn',
-    campus: 'Universitas Negeri Surabaya',
-    activeImage: '/assets/syahdrulabdn/1.jpg',
-    images: ['/assets/syahdrulabdn/1.jpg', '/assets/syahdrulabdn/2.jpg', '/assets/syahdrulabdn/3.jpg', '/assets/syahdrulabdn/4.jpg', '/assets/syahdrulabdn/5.jpg', '/assets/syahdrulabdn/6.jpg']
-  },
-  {
-    name: 'ikaynl',
-    campus: 'Universitas Airlangga',
-    activeImage: '/assets/ikaynl/1.jpg',
-    images: ['/assets/ikaynl/1.jpg', '/assets/ikaynl/2.jpg', '/assets/ikaynl/3.jpg', '/assets/ikaynl/4.jpg', '/assets/ikaynl/5.jpg']
-  },
-  {
-    name: 'Ade Happy',
-    campus: 'Universitas Negeri Sunan Ampel Surabaya',
-    activeImage: '/assets/happy/1.jpg',
-    images: ['/assets/happy/1.jpg', '/assets/happy/2.jpg', '/assets/happy/3.jpg', '/assets/happy/4.jpg', '/assets/happy/5.jpg']
-  },
-  {
-    name: 'Group Session',
-    campus: 'Magister Studi Islam',
-    activeImage: '/assets/group-session/1.jpg',
-    images: ['/assets/group-session/1.jpg', '/assets/group-session/2.jpg', '/assets/group-session/3.jpg', '/assets/group-session/4.jpg', '/assets/group-session/5.jpg', '/assets/group-session/6.jpg']
-  }
-]);
+const clients = ref([]);
+const isLoading = ref(true);
+
+onMounted(async () => {
+    try {
+        const { data, error } = await supabase
+            .from('storydesto_content')
+            .select('*')
+            .eq('type', 'portfolio') // Ambil yang tipenya portfolio doang
+            .eq('is_pinned', true)   // Ambil yang di-pin doang
+            .order('sort_order', { ascending: true }); // Urutin sesuai angka dari CMS
+
+        if (error) throw error;
+
+        if (data) {
+            // Kita mapping datanya biar cocok sama struktur template HTML lo
+            clients.value = data.map(item => {
+                return {
+                    name: item.title,
+                    campus: item.subtitle,
+                    // Set gambar pertama sebagai active, kalau kosong ya pake string kosong
+                    activeImage: item.images && item.images.length > 0 ? item.images[0] : '',
+                    images: item.images || []
+                }
+            });
+        }
+    } catch (error) {
+        console.error('Gagal narik data portfolio:', error.message);
+    } finally {
+        isLoading.value = false;
+    }
+});
 </script>
 
 <template>
@@ -35,7 +42,15 @@ const clients = ref([
             <h2 class="text-[2.5rem] mb-1 text-[#2D2D2D] font-bold" data-aos="fade-up">Portfolio</h2>
             <p class="mb-4 text-[#666] max-w-[600px] mx-auto" data-aos="fade-up" data-aos-delay="100">Geser untuk melihat momen momen bahagia wisudawan lainnya.</p>
 
-            <div class="flex flex-col gap-[60px] max-w-[800px] mx-auto mt-20">
+            <div v-if="isLoading" class="flex justify-center items-center py-20">
+                <i class="ph ph-spinner-gap text-4xl animate-spin text-[#D4AF37]"></i>
+            </div>
+
+            <div v-else-if="clients.length === 0" class="py-20 text-[#666]">
+                Belum ada portofolio yang ditampilkan.
+            </div>
+
+            <div v-else class="flex flex-col gap-[60px] max-w-[800px] mx-auto mt-20">
                 <div v-for="(client, index) in clients" :key="index" class="bg-white p-8 rounded-[20px] shadow-[0_10px_40px_rgba(0,0,0,0.05)] hover:-translate-y-1 transition-all duration-300" data-aos="fade-up">
                     <div class="text-center mb-6 border-b-2 border-[#f0f0f0] pb-4">
                         <h3 class="text-[1.8rem] text-[#2D2D2D] font-bold mb-1">{{ client.name }}</h3>
@@ -47,11 +62,15 @@ const clients = ref([
                         <div class="w-full aspect-[4/5] rounded-[15px] overflow-hidden bg-[#f5f5f5] relative">
                             <Transition name="photo" mode="out-in">
                                 <img 
+                                    v-if="client.activeImage"
                                     :key="client.activeImage"
                                     :src="client.activeImage" 
                                     class="w-full h-full object-cover object-top cursor-pointer"
                                     alt="Foto Wisuda"
                                 >
+                                <div v-else class="w-full h-full flex items-center justify-center text-gray-400">
+                                    <i class="ph ph-image text-4xl"></i>
+                                </div>
                             </Transition>
                         </div>
 

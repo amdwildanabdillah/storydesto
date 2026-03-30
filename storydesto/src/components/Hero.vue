@@ -1,3 +1,30 @@
+<script setup>
+import { ref, onMounted } from 'vue';
+import { supabase } from '../supabase'; // Pastiin file supabase.js lu ada di folder src
+
+// Kita kasih default video bawaan lokal buat jaga-jaga kalau internet lambat/Supabase kosong
+const heroVideo = ref('/assets/hero/hero.mp4');
+
+onMounted(async () => {
+    try {
+        const { data, error } = await supabase
+            .from('storydesto_content')
+            .select('media_url')
+            .eq('type', 'hero')
+            .eq('is_pinned', true)
+            .order('sort_order', { ascending: true })
+            .limit(1)
+            .single();
+            
+        if (data && data.media_url) {
+            heroVideo.value = data.media_url; // Timpa pakai video dari DB
+        }
+    } catch (error) {
+        console.error('Gagal narik video hero:', error.message);
+    }
+});
+</script>
+
 <template>
     <section id="home" class="py-16 min-h-[90vh] flex items-center overflow-hidden">
         <div class="w-[90%] max-w-[1200px] mx-auto grid md:grid-cols-2 gap-12 items-center">
@@ -21,8 +48,8 @@
             
             <div class="order-1 md:order-2 flex justify-center" data-aos="fade-left" data-aos-delay="200">
                 <div class="relative w-[280px] h-[500px] md:w-[320px] md:h-[570px] rounded-[30px] shadow-[20px_20px_0px_#D4AF37] overflow-hidden mx-auto bg-black">
-                    <video autoplay muted loop playsinline class="w-full h-full object-cover object-center block">
-                        <source src="/assets/hero/hero.mp4" type="video/mp4">
+                    <video :key="heroVideo" autoplay muted loop playsinline class="w-full h-full object-cover object-center block">
+                        <source :src="heroVideo" type="video/mp4">
                     </video>
                 </div>
             </div>
