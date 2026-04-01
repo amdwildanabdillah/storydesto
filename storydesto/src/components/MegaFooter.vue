@@ -100,9 +100,9 @@
             <div class="flex flex-col md:flex-row justify-between items-center text-xs text-white/30 pt-8 border-t border-white/10">
                 <p>&copy; 2026 Storydesto. Surabaya, Indonesia.</p>
                 <div class="flex gap-6 mt-4 md:mt-0">
-                    <span>HOME</span>
-                    <span>SERVICES</span>
-                    <span>WORK</span>
+                    <a href="#home" class="hover:text-[#D4AF37] transition-colors cursor-pointer">HOME</a>
+    <a href="#services" class="hover:text-[#D4AF37] transition-colors cursor-pointer">SERVICES</a>
+    <a href="#portfolio" class="hover:text-[#D4AF37] transition-colors cursor-pointer">WORK</a>
                 </div>
             </div>
         </div>
