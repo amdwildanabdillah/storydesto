@@ -4,7 +4,7 @@ const isMenuOpen = ref(false);
 </script>
 
 <template>
-    <nav class="sticky top-0 z-[1000] bg-[#FAFAFA]/95 backdrop-blur-md shadow-[0_2px_10px_rgba(0,0,0,0.05)] py-6">
+    <nav class="fixed w-full top-0 z-[1000] bg-[#FAFAFA]/95 backdrop-blur-md shadow-[0_2px_10px_rgba(0,0,0,0.05)] py-6">
         <div class="w-[90%] max-w-[1200px] mx-auto flex justify-between items-center">
             <a href="#" class="text-[1.5rem] font-bold text-[#2D2D2D]">Storydesto<span class="text-[#D4AF37]">.</span></a>
             
